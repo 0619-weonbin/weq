@@ -21,22 +21,22 @@ public class WeatherData {
     public static class MainInfo {
         @SerializedName("temp")
         private Double temp;
-        @SerializedName("feels_like") // 체감 온도 필드 (API 응답과 일치)
-        private Double feelsLike;
+        @SerializedName("feels_like") // API 응답과 일치하도록 변경
+        private Double feels_like;
 
         public Double getTemp() {
             return temp;
         }
 
-        public Double getFeelsLike() {
-            return feelsLike;
+        public Double getFeels_like() { // getter 메서드 이름 변경
+            return feels_like;
         }
     }
 
     public static class WeatherInfo {
         @SerializedName("description")
         private String description;
-        @SerializedName("icon") // 아이콘 코드 필드 추가
+        @SerializedName("icon") // 아이콘 코드 필드 유지
         private String icon;
 
         public String getDescription() {

@@ -138,6 +138,8 @@ public class ForecastResponse {
         private Coord coord;
         @SerializedName("country")
         private String country;
+        @SerializedName("population") // closet 브랜치 필드 추가
+        private int population;
         @SerializedName("timezone")
         private int timezone;
         @SerializedName("sunrise")
@@ -161,6 +163,10 @@ public class ForecastResponse {
             return country;
         }
 
+        public int getPopulation() {
+            return population;
+        }
+
         public int getTimezone() {
             return timezone;
         }
@@ -175,7 +181,7 @@ public class ForecastResponse {
     }
 
     public static class Coord {
-        @SerializedName("lon")
+        @SerializedName("lon") // 순서 통일
         private double lon;
         @SerializedName("lat")
         private double lat;

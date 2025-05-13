@@ -3,14 +3,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp"
-    android:gravity="center">
+    android:gravity="center_horizontal">
 
     <TextView
         android:id="@+id/timeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="시간"
+        android:text="HH:MM"
         android:textColor="#000"
         android:layout_marginBottom="4dp"/>
 
@@ -19,6 +19,8 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@android:drawable/ic_menu_help"
+        android:layout_marginTop="4dp"
+        android:scaleType="fitCenter"
         android:layout_marginBottom="4dp"/>
 
     <TextView
@@ -26,7 +28,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:text="온도"
-        android:textColor="#000"/>
+        android:text="--°C"
+        android:textColor="#000"
+        android:layout_marginTop="4dp"/>
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="날씨"
+        android:textSize="12sp" />
 
 </LinearLayout>

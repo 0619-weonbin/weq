@@ -25,7 +25,7 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
         this.hourlyWeatherList = hourlyWeatherList;
     }
 
-    public void setHourlyWeatherList(List<HourlyWeather> hourlyWeatherList) { // Setter 메서드 추가
+    public void setHourlyWeatherList(List<HourlyWeather> hourlyWeatherList) { // Setter 메서드 유지
         this.hourlyWeatherList = hourlyWeatherList;
         notifyDataSetChanged();
     }
@@ -33,14 +33,14 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
     @NonNull
     @Override
     public HourlyWeatherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_hourly_weather, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hourly_weather, parent, false); // parent.getContext() 사용
         return new HourlyWeatherViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HourlyWeatherViewHolder holder, int position) {
         HourlyWeather hourlyWeather = hourlyWeatherList.get(position);
-        holder.bind(hourlyWeather);
+        holder.bind(hourlyWeather); // bind 메서드 호출 유지
     }
 
     @Override
@@ -52,12 +52,14 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
         private TextView timeTextView;
         private ImageView weatherIconImageView;
         private TextView tempTextView;
+        private TextView descriptionTextView; // 추가
 
         public HourlyWeatherViewHolder(View itemView) {
             super(itemView);
             timeTextView = itemView.findViewById(R.id.timeTextView);
             weatherIconImageView = itemView.findViewById(R.id.weatherIconImageView);
             tempTextView = itemView.findViewById(R.id.tempTextView);
+            descriptionTextView = itemView.findViewById(R.id.descriptionTextView); // findViewById 추가
         }
 
         public void bind(HourlyWeather hourlyWeather) {
@@ -69,7 +71,6 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
             } else {
                 timeTextView.setText("");
             }
-
 
             // 날씨 아이콘 표시
             if (hourlyWeather.getWeather() != null && !hourlyWeather.getWeather().isEmpty() &&
@@ -86,6 +87,14 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
                 tempTextView.setText(String.format("%.1f°C", hourlyWeather.getMain().getTemp()));
             } else {
                 tempTextView.setText("");
+            }
+
+            // 날씨 설명 표시 (추가)
+            if (hourlyWeather.getWeather() != null && !hourlyWeather.getWeather().isEmpty() &&
+                    hourlyWeather.getWeather().get(0).getDescription() != null) {
+                descriptionTextView.setText(hourlyWeather.getWeather().get(0).getDescription());
+            } else {
+                descriptionTextView.setText("");
             }
         }
     }

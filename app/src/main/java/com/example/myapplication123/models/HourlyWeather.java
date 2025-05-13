@@ -1,7 +1,7 @@
 package com.example.myapplication123.models;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.List; // 이 줄을 추가합니다.
+import java.util.List;
 
 public class HourlyWeather {
     @SerializedName("dt_txt")
