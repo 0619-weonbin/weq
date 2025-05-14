@@ -28,18 +28,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentTempTextView;
     private TextView feelsLikeTextView;
     private TextView weatherDescriptionTextView;
-    private RecyclerView hourlyWeatherRecyclerView;
     private HourlyWeatherAdapter hourlyWeatherAdapter;
     private List<HourlyWeather> hourlyWeatherList;
     private WeatherApiService weatherService;
-    private String apiKey = "0"; // 여기에 실제 API 키를 넣으세요
+    private final String apiKey = "5cdcf11828c78b830592b9a252c231c7"; // 여기에 실제 API 키를 넣으세요
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        hourlyWeatherRecyclerView = findViewById(R.id.hourlyWeatherRecyclerView);
+        RecyclerView hourlyWeatherRecyclerView = findViewById(R.id.hourlyWeatherRecyclerView);
         hourlyWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         hourlyWeatherList = new ArrayList<>();
         hourlyWeatherAdapter = new HourlyWeatherAdapter(this, hourlyWeatherList);
@@ -58,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         weatherService = retrofit.create(WeatherApiService.class);
 
-        getWeatherData("Seoul");
+        getWeatherData();
         getForecastData("Seoul");
     }
 
-    private void getWeatherData(String city) {
-        weatherService.getWeather(city, apiKey, "metric").enqueue(new Callback<WeatherData>() {
+    private void getWeatherData() {
+        weatherService.getWeather("Seoul", apiKey, "metric").enqueue(new Callback<WeatherData>() {
             @Override
             public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
                 if (response.isSuccessful() && response.body() != null) {
