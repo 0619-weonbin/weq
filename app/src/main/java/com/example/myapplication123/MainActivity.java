@@ -16,7 +16,6 @@ import com.example.myapplication123.adapters.HourlyWeatherAdapter;
 import com.example.myapplication123.models.DailyWeather;
 import com.example.myapplication123.models.ForecastResponse;
 import com.example.myapplication123.models.HourlyWeather;
-import com.example.myapplication123.WeatherData;
 import com.squareup.picasso.Picasso;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,16 +37,16 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentTempTextView;
     private TextView feelsLikeTextView;
     private TextView weatherDescriptionTextView;
-    private ImageView weatherIconImageView; // kwb_2 브랜치에서 추가
+    private ImageView weatherIconImageView;
     private RecyclerView hourlyWeatherRecyclerView;
     private HourlyWeatherAdapter hourlyWeatherAdapter;
     private List<HourlyWeather> hourlyWeatherList;
     private WeatherApiService weatherService;
-    private final String apiKey = "e104a5f5b1766db1aab732f82fe5b57e"; // 여기에 실제 API 키를 넣으세요 (두 브랜치 중 올바른 키로 설정)
-    private RecyclerView dailyForecastRecyclerView; // kwb_2 브랜치에서 추가
-    private DailyForecastAdapter dailyForecastAdapter; // kwb_2 브랜치에서 추가
-    private List<DailyWeather> dailyWeatherList; // kwb_2 브랜치에서 추가
-    private Button goToStyleButton; // kwb_2 브랜치에서 추가
+    private final String apiKey = "e104a5f5b1766db1aab732f82fe5b57e"; // 통합된 API 키 (필요에 따라 수정)
+    private RecyclerView dailyForecastRecyclerView;
+    private DailyForecastAdapter dailyForecastAdapter;
+    private List<DailyWeather> dailyWeatherList;
+    private Button goToStyleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +59,20 @@ public class MainActivity extends AppCompatActivity {
         currentTempTextView = findViewById(R.id.currentTempTextView);
         feelsLikeTextView = findViewById(R.id.feelsLikeTextView);
         weatherDescriptionTextView = findViewById(R.id.weatherDescriptionTextView);
-        weatherIconImageView = findViewById(R.id.weatherIconImageView); // kwb_2 브랜치에서 추가
+        weatherIconImageView = findViewById(R.id.weatherIconImageView);
         hourlyWeatherRecyclerView = findViewById(R.id.hourlyWeatherRecyclerView);
-        dailyForecastRecyclerView = findViewById(R.id.dailyForecastRecyclerView); // kwb_2 브랜치에서 추가
-        goToStyleButton = findViewById(R.id.goToStyleButton); // kwb_2 브랜치에서 추가
+        dailyForecastRecyclerView = findViewById(R.id.dailyForecastRecyclerView);
+        goToStyleButton = findViewById(R.id.goToStyleButton);
 
         hourlyWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         hourlyWeatherList = new ArrayList<>();
         hourlyWeatherAdapter = new HourlyWeatherAdapter(this, hourlyWeatherList);
         hourlyWeatherRecyclerView.setAdapter(hourlyWeatherAdapter);
 
-        dailyForecastRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)); // kwb_2 브랜치에서 추가
-        dailyWeatherList = new ArrayList<>(); // kwb_2 브랜치에서 추가
-        dailyForecastAdapter = new DailyForecastAdapter(this, dailyWeatherList); // kwb_2 브랜치에서 추가
-        dailyForecastRecyclerView.setAdapter(dailyForecastAdapter); // kwb_2 브랜치에서 추가
+        dailyForecastRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        dailyWeatherList = new ArrayList<>();
+        dailyForecastAdapter = new DailyForecastAdapter(this, dailyWeatherList);
+        dailyForecastRecyclerView.setAdapter(dailyForecastAdapter);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/data/2.5/")
@@ -81,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         weatherService = retrofit.create(WeatherApiService.class);
 
-        goToStyleButton.setOnClickListener(new View.OnClickListener() { // kwb_2 브랜치에서 추가
+        goToStyleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Style.class);
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         getForecastData("Seoul");
     }
 
-    private void getWeatherData(String city) { // 인자 추가 (closet 브랜치 방식)
+    private void getWeatherData(String city) {
         weatherService.getWeather(city, apiKey, "metric").enqueue(new Callback<WeatherData>() {
             @Override
             public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
@@ -100,13 +99,13 @@ public class MainActivity extends AppCompatActivity {
                     WeatherData weatherData = response.body();
                     updateUI(weatherData);
                 } else {
-                    showErrorMessage("Failed to get current weather data.", response); // kwb_2 브랜치 방식 유지
+                    showErrorMessage("Failed to get current weather data.", response);
                 }
             }
 
             @Override
             public void onFailure(Call<WeatherData> call, Throwable t) {
-                showFailureMessage("Network error: " + t.getMessage(), t); // kwb_2 브랜치 방식 유지
+                showFailureMessage("Network error: " + t.getMessage(), t);
             }
         });
     }
@@ -119,23 +118,23 @@ public class MainActivity extends AppCompatActivity {
                     ForecastResponse forecastResponse = response.body();
                     Log.d("API Response", "Forecast Data: " + forecastResponse.toString());
 
-                    List<HourlyWeather> fetchedHourlyWeatherList = convertForecastListToHourlyList(forecastResponse.getList()); // kwb_2 브랜치에서 추가
+                    List<HourlyWeather> fetchedHourlyWeatherList = convertForecastListToHourlyList(forecastResponse.getList());
                     hourlyWeatherList.clear();
                     hourlyWeatherList.addAll(fetchedHourlyWeatherList);
                     hourlyWeatherAdapter.setHourlyWeatherList(hourlyWeatherList);
                     hourlyWeatherAdapter.notifyDataSetChanged();
 
-                    processDailyData(forecastResponse); // kwb_2 브랜치에서 추가
-                    dailyForecastAdapter.notifyDataSetChanged(); // kwb_2 브랜치에서 추가
+                    processDailyData(forecastResponse);
+                    dailyForecastAdapter.notifyDataSetChanged();
 
                 } else {
-                    showErrorMessage("Failed to get forecast data.", response); // kwb_2 브랜치 방식 유지
+                    showErrorMessage("Failed to get forecast data.", response);
                 }
             }
 
             @Override
             public void onFailure(Call<ForecastResponse> call, Throwable t) {
-                showFailureMessage("Network error: " + t.getMessage(), t); // kwb_2 브랜치 방식 유지
+                showFailureMessage("Network error: " + t.getMessage(), t);
             }
         });
     }
@@ -150,28 +149,28 @@ public class MainActivity extends AppCompatActivity {
 
         if (weatherData.getMain() != null) {
             currentTempTextView.setText(String.format("%.1f°C", weatherData.getMain().getTemp()));
-            feelsLikeTextView.setText(String.format("체감온도 %.1f°C", weatherData.getMain().getFeels_like())); // closet 브랜치 방식 유지 (API 응답 변경 확인 필요)
+            feelsLikeTextView.setText(String.format("체감온도 %.1f°C", weatherData.getMain().getFeels_like())); // closet 브랜치 방식 유지
         }
 
         if (weatherData.getWeather() != null && !weatherData.getWeather().isEmpty()) {
             weatherDescriptionTextView.setText(weatherData.getWeather().get(0).getDescription());
-            String iconCode = weatherData.getWeather().get(0).getIcon(); // kwb_2 브랜치에서 추가
-            String iconUrl = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png"; // kwb_2 브랜치에서 추가
-            Picasso.get().load(iconUrl).into(weatherIconImageView); // kwb_2 브랜치에서 추가
+            String iconCode = weatherData.getWeather().get(0).getIcon();
+            String iconUrl = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+            Picasso.get().load(iconUrl).into(weatherIconImageView);
         }
     }
 
-    private void showErrorMessage(String message, Response<?> response) { // kwb_2 브랜치에서 추가
+    private void showErrorMessage(String message, Response<?> response) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
         Log.e("API Error", "Code: " + response.code() + ", Body: " + (response.errorBody() != null ? response.errorBody().toString() : "null"));
     }
 
-    private void showFailureMessage(String message, Throwable t) { // kwb_2 브랜치에서 추가
+    private void showFailureMessage(String message, Throwable t) {
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
         Log.e("Network Error", t.getMessage());
     }
 
-    private void processDailyData(ForecastResponse forecastResponse) { // kwb_2 브랜치에서 추가
+    private void processDailyData(ForecastResponse forecastResponse) {
         dailyWeatherList = new ArrayList<>();
         if (forecastResponse.getList() != null && !forecastResponse.getList().isEmpty()) {
             Map<String, DailyWeatherData> dailyDataMap = new HashMap<>();
@@ -213,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private List<HourlyWeather> convertForecastListToHourlyList(List<ForecastResponse.ForecastItem> forecastList) { // kwb_2 브랜치에서 추가
+    private List<HourlyWeather> convertForecastListToHourlyList(List<ForecastResponse.ForecastItem> forecastList) {
         List<HourlyWeather> hourlyList = new ArrayList<>();
         if (forecastList != null) {
             for (ForecastResponse.ForecastItem forecastItem : forecastList) {
@@ -242,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         return hourlyList;
     }
 
-    private static class DailyWeatherData { // kwb_2 브랜치에서 추가
+    private static class DailyWeatherData {
         double maxTemp = Double.NEGATIVE_INFINITY;
         double minTemp = Double.POSITIVE_INFINITY;
         String description;

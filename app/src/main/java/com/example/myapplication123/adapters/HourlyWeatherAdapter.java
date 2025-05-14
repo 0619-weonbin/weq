@@ -1,6 +1,8 @@
 package com.example.myapplication123.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,34 +15,35 @@ import com.example.myapplication123.models.HourlyWeather;
 import com.squareup.picasso.Picasso;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeatherViewHolder> {
 
-    private Context context;
-    private List<HourlyWeather> hourlyWeatherList;
+    private final List<HourlyWeather> hourlyWeatherList;
 
     public HourlyWeatherAdapter(Context context, List<HourlyWeather> hourlyWeatherList) {
-        this.context = context;
         this.hourlyWeatherList = hourlyWeatherList;
     }
 
-    public void setHourlyWeatherList(List<HourlyWeather> hourlyWeatherList) { // Setter 메서드 유지
-        this.hourlyWeatherList = hourlyWeatherList;
+    public void setHourlyWeatherList(List<HourlyWeather> newHourlyWeatherList) {
+        this.hourlyWeatherList.clear(); // 기존 리스트 내용 삭제
+        this.hourlyWeatherList.addAll(newHourlyWeatherList); // 새로운 리스트 내용 추가
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public HourlyWeatherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hourly_weather, parent, false); // parent.getContext() 사용
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hourly_weather, parent, false);
         return new HourlyWeatherViewHolder(view);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull HourlyWeatherViewHolder holder, int position) {
         HourlyWeather hourlyWeather = hourlyWeatherList.get(position);
-        holder.bind(hourlyWeather); // bind 메서드 호출 유지
+        holder.bind(hourlyWeather);
     }
 
     @Override
@@ -49,52 +52,53 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
     }
 
     public static class HourlyWeatherViewHolder extends RecyclerView.ViewHolder {
-        private TextView timeTextView;
-        private ImageView weatherIconImageView;
-        private TextView tempTextView;
-        private TextView descriptionTextView; // 추가
+        private final TextView timeTextView;
+        private final ImageView weatherIconImageView;
+        private final TextView tempTextView;
+        private final TextView descriptionTextView;
 
         public HourlyWeatherViewHolder(View itemView) {
             super(itemView);
             timeTextView = itemView.findViewById(R.id.timeTextView);
             weatherIconImageView = itemView.findViewById(R.id.weatherIconImageView);
             tempTextView = itemView.findViewById(R.id.tempTextView);
-            descriptionTextView = itemView.findViewById(R.id.descriptionTextView); // findViewById 추가
+            descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
         }
 
         public void bind(HourlyWeather hourlyWeather) {
-            // 시간 표시
             if (hourlyWeather.getDateTime() != null) {
-                LocalDateTime dateTime = LocalDateTime.parse(hourlyWeather.getDateTime().replace(" ", "T"));
-                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                timeTextView.setText(dateTime.format(timeFormatter));
+                try {
+                    String dateTimeString = hourlyWeather.getDateTime();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
+                    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+                    timeTextView.setText(timeFormatter.format(dateTime));
+                } catch (DateTimeParseException e) {
+                    Log.e("DateTimeParseError", "Date time parsing error for: " + hourlyWeather.getDateTime(), e);
+                    timeTextView.setText("N/A");
+                }
             } else {
                 timeTextView.setText("");
             }
 
-            // 날씨 아이콘 표시
-            if (hourlyWeather.getWeather() != null && !hourlyWeather.getWeather().isEmpty() &&
-                    hourlyWeather.getWeather().get(0).getIcon() != null) {
+            if (hourlyWeather.getWeather() != null && !hourlyWeather.getWeather().isEmpty()) {
                 String iconCode = hourlyWeather.getWeather().get(0).getIcon();
                 String iconUrl = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
                 Picasso.get().load(iconUrl).into(weatherIconImageView);
+                if (hourlyWeather.getWeather().get(0).getDescription() != null) {
+                    descriptionTextView.setText(hourlyWeather.getWeather().get(0).getDescription());
+                } else {
+                    descriptionTextView.setText("");
+                }
             } else {
-                weatherIconImageView.setImageResource(android.R.drawable.ic_menu_help); // 기본 아이콘 설정
+                weatherIconImageView.setImageResource(android.R.drawable.ic_menu_help);
+                descriptionTextView.setText("");
             }
 
-            // 온도 표시
             if (hourlyWeather.getMain() != null) {
                 tempTextView.setText(String.format("%.1f°C", hourlyWeather.getMain().getTemp()));
             } else {
                 tempTextView.setText("");
-            }
-
-            // 날씨 설명 표시 (추가)
-            if (hourlyWeather.getWeather() != null && !hourlyWeather.getWeather().isEmpty() &&
-                    hourlyWeather.getWeather().get(0).getDescription() != null) {
-                descriptionTextView.setText(hourlyWeather.getWeather().get(0).getDescription());
-            } else {
-                descriptionTextView.setText("");
             }
         }
     }
