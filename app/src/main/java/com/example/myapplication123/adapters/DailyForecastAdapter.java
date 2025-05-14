@@ -1,7 +1,6 @@
 // DailyForecastAdapter.java
 package com.example.myapplication123.adapters;
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdapter.DailyForecastViewHolder> {
 
-    private Context context;
+    private final Context context;
     private List<DailyWeather> dailyWeatherList;
 
     public DailyForecastAdapter(Context context, List<DailyWeather> dailyWeatherList) {
@@ -27,40 +26,47 @@ public class DailyForecastAdapter extends RecyclerView.Adapter<DailyForecastAdap
     @NonNull
     @Override
     public DailyForecastViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_daily_forecast, parent, false); // R.layout.your_layout_file_name 을 실제 레이아웃 파일 이름으로 변경
+        View view = LayoutInflater.from(context).inflate(R.layout.item_daily_forecast, parent, false);
         return new DailyForecastViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DailyForecastViewHolder holder, int position) {
-        DailyWeather dailyWeather = dailyWeatherList.get(position);
-
-        holder.dateTextView.setText(dailyWeather.getDate());
-        holder.minTempTextView.setText(String.format("최저: %.1f°C", dailyWeather.getMinTemp()));
-        holder.maxTempTextView.setText(String.format("최고: %.1f°C", dailyWeather.getMaxTemp()));
-        holder.descriptionTextView.setText(dailyWeather.getDescription());
-        // holder.weatherIconImageView.setImageResource(dailyWeather.getIconResource()); // 아이콘 설정 (DailyWeather 클래스에 getIconResource() 메서드가 필요합니다.)
+        if (dailyWeatherList != null && position < dailyWeatherList.size()) {
+            DailyWeather dailyWeather = dailyWeatherList.get(position);
+            holder.bind(dailyWeather);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return dailyWeatherList.size();
+        return dailyWeatherList == null ? 0 : dailyWeatherList.size();
     }
 
     public static class DailyForecastViewHolder extends RecyclerView.ViewHolder {
-        TextView dateTextView;
-        TextView minTempTextView;
-        TextView maxTempTextView;
-        TextView descriptionTextView;
-        ImageView weatherIconImageView;
+        private final TextView dateTextView;
+        private final TextView minTempTextView;
+        private final TextView maxTempTextView;
+        private final TextView descriptionTextView;
+        private final ImageView weatherIconImageView;
 
         public DailyForecastViewHolder(@NonNull View itemView) {
             super(itemView);
             dateTextView = itemView.findViewById(R.id.dateTextView);
-            minTempTextView = itemView.findViewById(R.id.lowTempTextView); // id 변경
-            maxTempTextView = itemView.findViewById(R.id.highTempTextView); // id 변경
+            minTempTextView = itemView.findViewById(R.id.lowTempTextView);
+            maxTempTextView = itemView.findViewById(R.id.highTempTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
             weatherIconImageView = itemView.findViewById(R.id.weatherIconImageView);
+        }
+
+        public void bind(DailyWeather dailyWeather) {
+            dateTextView.setText(dailyWeather.getDate());
+            minTempTextView.setText(String.format("최저: %.1f°C", dailyWeather.getMinTemp()));
+            maxTempTextView.setText(String.format("최고: %.1f°C", dailyWeather.getMaxTemp()));
+            descriptionTextView.setText(dailyWeather.getDescription());
+            // 아이콘 설정은 아직 DailyWeather에 관련 정보가 없어 보류합니다.
+            // 필요하다면 DailyWeather 클래스에 아이콘 관련 필드와 로직을 추가해야 합니다.
+            // 예: Picasso.get().load(dailyWeather.getIconUrl()).into(weatherIconImageView);
         }
     }
 }

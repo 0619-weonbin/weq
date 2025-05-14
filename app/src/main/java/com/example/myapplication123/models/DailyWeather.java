@@ -7,27 +7,38 @@ public class DailyWeather {
     private double maxTemp;
     private String description;
 
+    public DailyWeather() {
+        // 기본 생성자 추가
+    }
+
     public String getDate() {
         return date;
     }
+
     public void setDate(String date) {
         this.date = date;
     }
+
     public double getMinTemp() {
         return minTemp;
     }
+
     public void setMinTemp(double minTemp) {
         this.minTemp = minTemp;
     }
+
     public double getMaxTemp() {
         return maxTemp;
     }
+
     public void setMaxTemp(double maxTemp) {
         this.maxTemp = maxTemp;
     }
+
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -41,6 +52,4 @@ public class DailyWeather {
                 ", description='" + description + '\'' +
                 '}';
     }
-
 }
-

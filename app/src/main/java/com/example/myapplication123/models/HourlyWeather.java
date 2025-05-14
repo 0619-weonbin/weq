@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class HourlyWeather {
+
     @SerializedName("dt_txt")
     private String dateTime;
     @SerializedName("main")
@@ -68,6 +69,8 @@ public class HourlyWeather {
         private String icon;
         @SerializedName("description")
         private String description;
+        @SerializedName("main")
+        private String main;
 
         // Getter and Setter for icon
         public String getIcon() {
@@ -85,6 +88,14 @@ public class HourlyWeather {
 
         public void setDescription(String description) {
             this.description = description;
+        }
+
+        public String getMain() {
+            return main;
+        }
+
+        public void setMain(String main) {
+            this.main = main;
         }
     }
 }

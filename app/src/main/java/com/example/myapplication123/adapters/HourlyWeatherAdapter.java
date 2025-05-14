@@ -1,6 +1,5 @@
 package com.example.myapplication123.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,26 +19,31 @@ import java.util.List;
 
 public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeatherViewHolder> {
 
-    private final List<HourlyWeather> hourlyWeatherList;
+    private final Context context;
+    private List<HourlyWeather> hourlyWeatherList;
 
     public HourlyWeatherAdapter(Context context, List<HourlyWeather> hourlyWeatherList) {
+        this.context = context;
         this.hourlyWeatherList = hourlyWeatherList;
     }
 
     public void setHourlyWeatherList(List<HourlyWeather> newHourlyWeatherList) {
-        this.hourlyWeatherList.clear(); // 기존 리스트 내용 삭제
-        this.hourlyWeatherList.addAll(newHourlyWeatherList); // 새로운 리스트 내용 추가
+        if (this.hourlyWeatherList != null) {
+            this.hourlyWeatherList.clear(); // 기존 리스트 내용 삭제
+            this.hourlyWeatherList.addAll(newHourlyWeatherList); // 새로운 리스트 내용 추가
+        } else {
+            this.hourlyWeatherList = newHourlyWeatherList;
+        }
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public HourlyWeatherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hourly_weather, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_hourly_weather, parent, false);
         return new HourlyWeatherViewHolder(view);
     }
 
-    @SuppressLint("DefaultLocale")
     @Override
     public void onBindViewHolder(@NonNull HourlyWeatherViewHolder holder, int position) {
         HourlyWeather hourlyWeather = hourlyWeatherList.get(position);
@@ -48,7 +52,7 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
 
     @Override
     public int getItemCount() {
-        return hourlyWeatherList.size();
+        return hourlyWeatherList == null ? 0 : hourlyWeatherList.size();
     }
 
     public static class HourlyWeatherViewHolder extends RecyclerView.ViewHolder {

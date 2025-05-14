@@ -16,18 +16,19 @@ import com.example.myapplication123.adapters.HourlyWeatherAdapter;
 import com.example.myapplication123.models.DailyWeather;
 import com.example.myapplication123.models.ForecastResponse;
 import com.example.myapplication123.models.HourlyWeather;
+import com.example.myapplication123.models.WeatherData;
 import com.squareup.picasso.Picasso;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
