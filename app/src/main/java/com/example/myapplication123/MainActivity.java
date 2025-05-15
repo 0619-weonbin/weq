@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private HourlyWeatherAdapter hourlyWeatherAdapter;
     private List<HourlyWeather> hourlyWeatherList;
     private WeatherApiService weatherService;
-    private final String apiKey = "e104a5f5b1766db1aab732f82fe5b57e"; // 여기에 API 키를 넣으세요
+    private final String apiKey = " "; // 여기에 API 키를 넣으세요
     private RecyclerView dailyForecastRecyclerView;
     private DailyForecastAdapter dailyForecastAdapter;
     private List<DailyWeather> dailyWeatherList;
