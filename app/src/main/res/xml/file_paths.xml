@@ -1,0 +1,7 @@
+<!-- 파일 경로 설정 파일: res/xml/file_paths.xml -->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 앱 전용 외부 저장소 Pictures 디렉토리를 fileprovider가 접근할 수 있도록 설정 -->
+    <external-files-path
+        name="my_images"
+        path="Pictures" />
+</paths>
