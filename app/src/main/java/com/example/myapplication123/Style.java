@@ -34,7 +34,7 @@ public class Style extends AppCompatActivity {
     private Uri photoUri;               // 저장된 사진의 Uri
     private File photoFile;             // 저장된 사진의 파일 객체
     //드롭다운 메뉴 관련
-    private Spinner spinnerStyle, spinnerType;
+    private Spinner spinnerStyle, spinnerType, spinnerPreference;
     private Button buttonSave;
 
     @Override
@@ -63,15 +63,21 @@ public class Style extends AppCompatActivity {
         // 스피너 참조erer
         spinnerStyle = findViewById(R.id.spinner_style);
         spinnerType = findViewById(R.id.spinner_type);
+        spinnerPreference = findViewById(R.id.spinner_preference);
         buttonSave = findViewById(R.id.button_save);
 
         // 항목 리스트 생성
-        String[] styleOptions = {"캐주얼", "스포티", "포멀"};
+        String[] styleOptions = {"아메카지", "스트릿", "미니멀", "캐주얼", "스포티/애슬레저", "걸리시",
+                "프레피룩", "빈티지", "레트로", "오피스룩 / 포멀룩", "노멀코어", "테크웨어", "댄디룩", "모던룩",
+                "내추럴룩", "보헤미안", "유니섹스", "힙스터 스타일", "멀티레이어드", "코리안 스트릿", "Y2K",
+                "케이팝 스타일", "룩북 스타일 / 인스타 감성룩"};
         String[] typeOptions = {"상의", "하의", "아우터"};
+        String[] preferenceOptions = {"선호도: 5", "선호도: 4", "선호도: 3", "선호도: 2", "선호도: 1"};
 
         // 어댑터 설정
         setUpSpinner(spinnerStyle, styleOptions);
         setUpSpinner(spinnerType, typeOptions);
+        setUpSpinner(spinnerPreference, preferenceOptions);
 
         //저장 버튼 (데베 저장) ***********************************************************************
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -83,10 +89,14 @@ public class Style extends AppCompatActivity {
                     ContentValues values = new ContentValues();
                     values.put("style", spinnerStyle.getSelectedItem().toString());
                     values.put("type", spinnerType.getSelectedItem().toString());
+
+                    String preference = spinnerPreference.getSelectedItem().toString();
+                    values.put("preference", Integer.parseInt(preference.substring(
+                            preference.indexOf(":") + 1).trim()));
                     values.put("image_url", photoFile.getAbsolutePath()); //파일 path
                     long rowId = db.insert("clothes", null, values);
                 }
-                Toast.makeText(Style.this, "저장 완료", Toast.LENGTH_LONG).show();
+                Toast.makeText(Style.this, "저장완료", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
