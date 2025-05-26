@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -34,7 +35,7 @@ public class Style extends AppCompatActivity {
     private Uri photoUri;               // 저장된 사진의 Uri
     private File photoFile;             // 저장된 사진의 파일 객체
     //드롭다운 메뉴 관련
-    private Spinner spinnerStyle, spinnerType, spinnerPreference;
+    private Spinner spinnerStyle, spinnerType, spinnerDetailedType, spinnerPreference;
     private Button buttonSave;
 
     @Override
@@ -60,9 +61,10 @@ public class Style extends AppCompatActivity {
         );
         //드롭다운 메뉴 관련 **************************************************************************
 
-        // 스피너 참조erer
+        // 스피너 참조
         spinnerStyle = findViewById(R.id.spinner_style);
         spinnerType = findViewById(R.id.spinner_type);
+        spinnerDetailedType = findViewById(R.id.spinner_detailed_type);
         spinnerPreference = findViewById(R.id.spinner_preference);
         buttonSave = findViewById(R.id.button_save);
 
@@ -72,12 +74,36 @@ public class Style extends AppCompatActivity {
                 "내추럴룩", "보헤미안", "유니섹스", "힙스터 스타일", "멀티레이어드", "코리안 스트릿", "Y2K",
                 "케이팝 스타일", "룩북 스타일 / 인스타 감성룩"};
         String[] typeOptions = {"상의", "하의", "아우터"};
+        String[] typeOptions_outer = {"두꺼운 아우터", "가벼운 아우터","패딩"};
+        String[] typeOptions_top = {"기모상의","두꺼운 긴팔" ,"가벼운 긴팔", "반팔", "나시", "원피스"};
+        String[] typeOptions_bottom = {"기모바지", "긴바지", "반바지"};
         String[] preferenceOptions = {"선호도: 5", "선호도: 4", "선호도: 3", "선호도: 2", "선호도: 1"};
 
         // 어댑터 설정
         setUpSpinner(spinnerStyle, styleOptions);
         setUpSpinner(spinnerType, typeOptions);
         setUpSpinner(spinnerPreference, preferenceOptions);
+
+        // spinnerType 선택에 따라 상세 타입 스피너 변경
+        spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0: // 상의
+                        setUpSpinner(spinnerDetailedType, typeOptions_top);
+                        break;
+                    case 1: // 하의
+                        setUpSpinner(spinnerDetailedType, typeOptions_bottom);
+                        break;
+                    case 2: // 아우터
+                        setUpSpinner(spinnerDetailedType, typeOptions_outer);
+                        break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         //저장 버튼 (데베 저장) ***********************************************************************
         buttonSave.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +115,7 @@ public class Style extends AppCompatActivity {
                     ContentValues values = new ContentValues();
                     values.put("style", spinnerStyle.getSelectedItem().toString());
                     values.put("type", spinnerType.getSelectedItem().toString());
+                    values.put("detailed_type", spinnerDetailedType.getSelectedItem().toString());
 
                     String preference = spinnerPreference.getSelectedItem().toString();
                     values.put("preference", Integer.parseInt(preference.substring(
