@@ -3,6 +3,7 @@
     <string name="app_name">Mop</string>
 
     <string-array name="style_array">
+        <item>스타일 선택</item>
         <item>아메카지</item>
         <item>스트릿</item>
         <item>미니멀</item>
