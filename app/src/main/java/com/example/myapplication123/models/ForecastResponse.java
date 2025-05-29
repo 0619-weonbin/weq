@@ -6,163 +6,55 @@ import java.util.List;
 public class ForecastResponse {
     @SerializedName("cod")
     private String cod;
-
     @SerializedName("message")
     private int message;
-
     @SerializedName("cnt")
     private int cnt;
-
     @SerializedName("list")
-    private List<HourlyWeather> list;
+    private List<ForecastItem> list; // 이 부분을 확인
+    @SerializedName("city")
+    //private City city;
 
-    @SerializedName("city")  // Add this if the API returns city info in the forecast
-    private City city;
+    // Getter 및 Setter 메서드
 
-    public String getCod() {
-        return cod;
-    }
-
-    public void setCod(String cod) {
-        this.cod = cod;
-    }
-
-    public int getMessage() {
-        return message;
-    }
-
-    public void setMessage(int message) {
-        this.message = message;
-    }
-
-    public int getCnt() {
-        return cnt;
-    }
-
-    public void setCnt(int cnt) {
-        this.cnt = cnt;
-    }
-
-    public List<HourlyWeather> getList() {
+    public List<ForecastItem> getList() { // getList() 메서드 추가 또는 확인
         return list;
     }
 
-    public void setList(List<HourlyWeather> list) {
-        this.list = list;
+    // 내부 클래스 ForecastItem, Main, Weather (이전 답변 참고)
+    public static class ForecastItem {
+        @SerializedName("dt_txt")
+        private String dtTxt;
+        private Main main;
+        private List<Weather> weather;
+
+        // Getter 및 Setter 메서드
+        public String getDtTxt() { return dtTxt; }
+        public Main getMain() { return main; }
+        public List<Weather> getWeather() { return weather; }
     }
 
-    public City getCity() {
-        return city;
+    public static class Main {
+        private double temp;
+        @SerializedName("feels_like")
+        private double feelsLike;
+        // 다른 필드
+
+        // Getter 및 Setter 메서드
+        public double getTemp() { return temp; }
+        public double getFeelsLike() { return feelsLike; }
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public static class Weather {
+        private String main;
+        private String description;
+        private String icon;
+
+        // Getter 및 Setter 메서드
+        public String getMain() { return main; }
+        public String getDescription() { return description; }
+        public String getIcon() { return icon; }
     }
 
-    public static class City {  // Added City class
-        @SerializedName("id")
-        private int id;
-        @SerializedName("name")
-        private String name;
-        @SerializedName("coord")
-        private Coord coord;
-        @SerializedName("country")
-        private String country;
-        @SerializedName("population")
-        private int population;
-        @SerializedName("timezone")
-        private int timezone;
-        @SerializedName("sunrise")
-        private int sunrise;
-        @SerializedName("sunset")
-        private int sunset;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Coord getCoord() {
-            return coord;
-        }
-
-        public void setCoord(Coord coord) {
-            this.coord = coord;
-        }
-
-        public String getCountry() {
-            return country;
-        }
-
-        public void setCountry(String country) {
-            this.country = country;
-        }
-
-        public int getPopulation() {
-            return population;
-        }
-
-        public void setPopulation(int population) {
-            this.population = population;
-        }
-
-        public int getTimezone() {
-            return timezone;
-        }
-
-        public void setTimezone(int timezone) {
-            this.timezone = timezone;
-        }
-
-        public int getSunrise() {
-            return sunrise;
-        }
-
-        public void setSunrise(int sunrise) {
-            this.sunrise = sunrise;
-        }
-
-        public int getSunset() {
-            return sunset;
-        }
-
-        public void setSunset(int sunset) {
-            this.sunset = sunset;
-        }
-    }
-
-    public static class Coord { // Added Coord Class
-        @SerializedName("lat")
-        private double lat;
-        @SerializedName("lon")
-        private double lon;
-
-        public double getLat() {
-            return lat;
-        }
-
-        public void setLat(double lat) {
-            this.lat = lat;
-        }
-
-        public double getLon() {
-            return lon;
-        }
-
-        public void setLon(double lon) {
-            this.lon = lon;
-        }
-    }
+    // City 및 Coord 클래스 (필요한 경우)
 }
-

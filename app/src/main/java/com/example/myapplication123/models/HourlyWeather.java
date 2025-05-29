@@ -11,26 +11,52 @@ public class HourlyWeather {
     private MainInfo main;
 
     @SerializedName("weather")
-    private java.util.List<WeatherInfo> weather;
+    private List<WeatherInfo> weather;
 
     public String getDateTime() {
         return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     public MainInfo getMain() {
         return main;
     }
 
+    public void setMain(MainInfo main) {
+        this.main = main;
+    }
+
     public List<WeatherInfo> getWeather() {
         return weather;
+    }
+
+    public void setWeather(List<WeatherInfo> weather) {
+        this.weather = weather;
     }
 
     public static class MainInfo {
         @SerializedName("temp")
         private Double temp;
+        @SerializedName("feels_like")
+        private Double feelsLike;
 
         public Double getTemp() {
             return temp;
+        }
+
+        public void setTemp(Double temp) {
+            this.temp = temp;
+        }
+
+        public Double getFeelsLike() {
+            return feelsLike;
+        }
+
+        public void setFeelsLike(Double feelsLike) {
+            this.feelsLike = feelsLike;
         }
     }
 
@@ -40,13 +66,31 @@ public class HourlyWeather {
 
         @SerializedName("description")
         private String description;
+        @SerializedName("main")
+        private String main;
 
         public String getIcon() {
             return icon;
         }
 
+        public void setIcon(String icon) {
+            this.icon = icon;
+        }
+
         public String getDescription() {
             return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public String getMain() {
+            return main;
+        }
+
+        public void setMain(String main) {
+            this.main = main;
         }
     }
 }
