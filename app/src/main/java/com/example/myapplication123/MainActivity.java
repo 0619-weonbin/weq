@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         goToStyleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StyleActivity.class);
+                Intent intent = new Intent(MainActivity.this, Style.class);
                 startActivity(intent);
             }
         });

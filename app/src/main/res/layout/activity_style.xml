@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <!-- 상단 이미지 -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:scaleType="fitCenter"/>
+
+        <!-- 제목 텍스트 -->
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="스타일 종류 선택"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- 드롭다운 메뉴: 스타일 -->
+        <Spinner
+            android:id="@+id/spinner_style"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/spinner_background"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp" />
+
+        <!-- 드롭다운 메뉴: 옷 유형 -->
+        <Spinner
+            android:id="@+id/spinner_type"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/spinner_background"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp" />
+
+        <!-- 드롭다운 메뉴: 세부 옷 유형 -->
+        <Spinner
+            android:id="@+id/spinner_detailed_type"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/spinner_background"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp" />
+
+        <!-- 드롭다운 메뉴: 선호도 -->
+        <Spinner
+            android:id="@+id/spinner_preference"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/spinner_background"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp" />
+
+        <!-- 저장 버튼 -->
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:text="저장"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#1E6BFF"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/button_blue" />
+
+    </LinearLayout>
+</ScrollView>
