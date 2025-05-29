@@ -1,18 +1,17 @@
 package com.example.myapplication123.models;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.List;
+import java.util.List; // 이 줄을 추가합니다.
 
 public class HourlyWeather {
-
     @SerializedName("dt_txt")
     private String dateTime;
     @SerializedName("main")
-    private Main main;
+    private MainInfo main;
     @SerializedName("weather")
-    private List<Weather> weather;
+    private List<WeatherInfo> weather;
 
-
+    // Getter and Setter for dateTime
     public String getDateTime() {
         return dateTime;
     }
@@ -21,56 +20,56 @@ public class HourlyWeather {
         this.dateTime = dateTime;
     }
 
-    public Main getMain() {
+    // Getter and Setter for main
+    public MainInfo getMain() {
         return main;
     }
 
-    public void setMain(Main main) {
+    public void setMain(MainInfo main) {
         this.main = main;
     }
 
-    public List<Weather> getWeather() {
+    // Getter and Setter for weather
+    public List<WeatherInfo> getWeather() {
         return weather;
     }
 
-    public void setWeather(List<Weather> weather) {
+    public void setWeather(List<WeatherInfo> weather) {
         this.weather = weather;
     }
 
-
-
-    public static class Main {
+    public static class MainInfo {
         @SerializedName("temp")
-        private double temp;
+        private Double temp;
         @SerializedName("feels_like")
-        private double feelsLike;
+        private Double feelsLike;
 
-        public double getTemp() {
+        // Getter and Setter for temp
+        public Double getTemp() {
             return temp;
         }
 
-        public void setTemp(double temp) {
+        public void setTemp(Double temp) {
             this.temp = temp;
         }
 
-        public double getFeelsLike() {
+        // Getter and Setter for feelsLike
+        public Double getFeelsLike() {
             return feelsLike;
         }
 
-        public void setFeelsLike(double feelsLike) {
+        public void setFeelsLike(Double feelsLike) {
             this.feelsLike = feelsLike;
         }
     }
 
-
-    public static class Weather {
+    public static class WeatherInfo {
         @SerializedName("icon")
         private String icon;
         @SerializedName("description")
         private String description;
-        @SerializedName("main")
-        private String main;
 
+        // Getter and Setter for icon
         public String getIcon() {
             return icon;
         }
@@ -79,20 +78,13 @@ public class HourlyWeather {
             this.icon = icon;
         }
 
+        // Getter and Setter for description
         public String getDescription() {
             return description;
         }
 
         public void setDescription(String description) {
             this.description = description;
-        }
-
-        public String getMain() {
-            return main;
-        }
-
-        public void setMain(String main) {
-            this.main = main;
         }
     }
 }

@@ -1,9 +1,8 @@
 package com.example.myapplication123;
 
-import android.os.Bundle;
-import android.util.Log;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,24 +11,24 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.myapplication123.adapters.HourlyWeatherAdapter;
 import com.example.myapplication123.adapters.DailyForecastAdapter;
+import com.example.myapplication123.adapters.HourlyWeatherAdapter;
+import com.example.myapplication123.models.DailyWeather;
 import com.example.myapplication123.models.ForecastResponse;
 import com.example.myapplication123.models.HourlyWeather;
-import com.example.myapplication123.models.DailyWeather;
 import com.example.myapplication123.WeatherData;
 import com.squareup.picasso.Picasso;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -221,22 +220,21 @@ public class MainActivity extends AppCompatActivity {
                 HourlyWeather hourlyWeather = new HourlyWeather();
                 hourlyWeather.setDateTime(forecastItem.getDtTxt());
 
-                HourlyWeather.Main main =  new HourlyWeather.Main();
-                main.setTemp(forecastItem.getMain().getTemp());
-                main.setFeelsLike(forecastItem.getMain().getFeelsLike());
-                hourlyWeather.setMain(main);
+                HourlyWeather.MainInfo mainInfo = new HourlyWeather.MainInfo();
+                mainInfo.setTemp(forecastItem.getMain().getTemp());
+                mainInfo.setFeelsLike(forecastItem.getMain().getFeelsLike());
+                hourlyWeather.setMain(mainInfo);
 
-                List<HourlyWeather.Weather> weatherList = new ArrayList<>();
+                List<HourlyWeather.WeatherInfo> weatherInfoList = new ArrayList<>();
                 if (forecastItem.getWeather() != null) {
                     for (ForecastResponse.Weather weatherItem : forecastItem.getWeather()) {
-                        HourlyWeather.Weather weather =  new HourlyWeather.Weather();
-                        weather.setIcon(weatherItem.getIcon());
-                        weather.setDescription(weatherItem.getDescription());
-                        weather.setMain(weatherItem.getMain());
-                        weatherList.add(weather);
+                        HourlyWeather.WeatherInfo weatherInfo = new HourlyWeather.WeatherInfo();
+                        weatherInfo.setIcon(weatherItem.getIcon());
+                        weatherInfo.setDescription(weatherItem.getDescription());
+                        weatherInfoList.add(weatherInfo);
                     }
                 }
-                hourlyWeather.setWeather(weatherList);
+                hourlyWeather.setWeather(weatherInfoList);
 
                 hourlyList.add(hourlyWeather);
             }
@@ -250,4 +248,3 @@ public class MainActivity extends AppCompatActivity {
         String description;
     }
 }
-
