@@ -3,39 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp"> <TextView
-    android:id="@+id/dateTextView"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight="1"
-    android:text="날짜"
-    android:textSize="18sp"
-    android:textStyle="bold" />
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="날짜"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/lowTempTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="최저: --°C"
-        android:textSize="16sp"
-        android:layout_marginStart="8dp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/highTempTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="최고: --°C"
-        android:textSize="16sp"
-        android:layout_marginStart="8dp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/descriptionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:text="날씨 설명"
-        android:textSize="16sp"
-        android:layout_marginStart="8dp" />
+        android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/weatherIconImageView"

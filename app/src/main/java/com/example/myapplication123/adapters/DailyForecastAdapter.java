@@ -1,6 +1,7 @@
 // DailyForecastAdapter.java
 package com.example.myapplication123.adapters;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

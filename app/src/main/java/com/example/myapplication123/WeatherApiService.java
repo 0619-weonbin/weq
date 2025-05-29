@@ -1,7 +1,10 @@
 package com.example.myapplication123;
 
+
+import com.example.myapplication123.WeatherData;
+
 import com.example.myapplication123.models.ForecastResponse;
-import com.example.myapplication123.models.WeatherData;
+import com.example.myapplication123.WeatherData;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
