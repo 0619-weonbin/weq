@@ -163,11 +163,8 @@ public class Style extends AppCompatActivity {
         // **HEAD 브랜치:** 외부 저장소 사용
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
-        // **f266f72 브랜치:** 내부 저장소 사용 (아래 코드는 주석 처리)
-        // File storageDir = new File(getFilesDir(), Environment.DIRECTORY_PICTURES);
-        // if (!storageDir.exists()) {
-        //     storageDir.mkdirs();
-        // }
+        // **f16fac9 브랜치:** 외부 저장소 사용 (아래 코드는 주석 처리)
+        // File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         // .jpg 확장자 임시 파일 생성
         return File.createTempFile(imageFileName, ".jpg", storageDir);
