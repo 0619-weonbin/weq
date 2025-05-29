@@ -159,8 +159,15 @@ public class Style extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
 
-        // 외부 저장소의 Pictures 디렉토리에 저장
+        // **병합된 부분: 외부 저장소와 내부 저장소 중 하나를 선택해야 합니다.**
+        // **HEAD 브랜치:** 외부 저장소 사용
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        // **f266f72 브랜치:** 내부 저장소 사용 (아래 코드는 주석 처리)
+        // File storageDir = new File(getFilesDir(), Environment.DIRECTORY_PICTURES);
+        // if (!storageDir.exists()) {
+        //     storageDir.mkdirs();
+        // }
 
         // .jpg 확장자 임시 파일 생성
         return File.createTempFile(imageFileName, ".jpg", storageDir);
