@@ -41,5 +41,6 @@ public class DailyWeather {
                 ", description='" + description + '\'' +
                 '}';
     }
+
 }
 

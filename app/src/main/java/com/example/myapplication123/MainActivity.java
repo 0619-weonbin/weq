@@ -2,6 +2,10 @@ package com.example.myapplication123;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,7 +17,7 @@ import com.example.myapplication123.adapters.DailyForecastAdapter;
 import com.example.myapplication123.models.ForecastResponse;
 import com.example.myapplication123.models.HourlyWeather;
 import com.example.myapplication123.models.DailyWeather;
-import com.example.myapplication123.models.WeatherData;
+import com.example.myapplication123.WeatherData;
 import com.squareup.picasso.Picasso;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,10 +44,11 @@ public class MainActivity extends AppCompatActivity {
     private HourlyWeatherAdapter hourlyWeatherAdapter;
     private List<HourlyWeather> hourlyWeatherList;
     private WeatherApiService weatherService;
-    private final String apiKey = " "; // 여기에 API 키를 넣으세요
+    private final String apiKey = "e104a5f5b1766db1aab732f82fe5b57e"; // 여기에 API 키를 넣으세요
     private RecyclerView dailyForecastRecyclerView;
     private DailyForecastAdapter dailyForecastAdapter;
     private List<DailyWeather> dailyWeatherList;
+    private Button goToStyleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         weatherIconImageView = findViewById(R.id.weatherIconImageView);
         hourlyWeatherRecyclerView = findViewById(R.id.hourlyWeatherRecyclerView);
         dailyForecastRecyclerView = findViewById(R.id.dailyForecastRecyclerView);
+        goToStyleButton = findViewById(R.id.goToStyleButton);
 
         hourlyWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         hourlyWeatherList = new ArrayList<>();
@@ -76,6 +82,13 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         weatherService = retrofit.create(WeatherApiService.class);
 
+        goToStyleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, StyleActivity.class);
+                startActivity(intent);
+            }
+        });
         getWeatherData();
         getForecastData("Seoul");
     }
