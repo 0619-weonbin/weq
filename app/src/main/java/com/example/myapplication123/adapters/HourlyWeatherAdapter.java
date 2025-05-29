@@ -56,7 +56,11 @@ public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdap
         public HourlyWeatherViewHolder(View itemView) {
             super(itemView);
             timeTextView = itemView.findViewById(R.id.timeTextView);
+
             weatherIconImageView = itemView.findViewById(R.id.iconImageView);
+
+            weatherIconImageView = itemView.findViewById(R.id.weatherIconImageView);
+
             tempTextView = itemView.findViewById(R.id.tempTextView);
         }
 

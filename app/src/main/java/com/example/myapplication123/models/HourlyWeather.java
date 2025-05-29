@@ -1,17 +1,21 @@
-package com.example.myapplication123.models; // models 패키지 생성 후 이동
+package com.example.myapplication123.models;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class HourlyWeather {
+
     @SerializedName("dt_txt")
     private String dateTime;
-
     @SerializedName("main")
-    private MainInfo main;
-
+    private Main main;
     @SerializedName("weather")
+
     private List<WeatherInfo> weather;
+
+    private List<Weather> weather;
+
+
 
     public String getDateTime() {
         return dateTime;
@@ -20,6 +24,7 @@ public class HourlyWeather {
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
+
 
     public MainInfo getMain() {
         return main;
@@ -43,9 +48,35 @@ public class HourlyWeather {
         @SerializedName("feels_like")
         private Double feelsLike;
 
-        public Double getTemp() {
+    public Main getMain() {
+        return main;
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
+    }
+
+    public List<Weather> getWeather() {
+        return weather;
+    }
+
+    public void setWeather(List<Weather> weather) {
+        this.weather = weather;
+    }
+
+
+
+
+    public static class Main {
+        @SerializedName("temp")
+        private double temp;
+        @SerializedName("feels_like")
+        private double feelsLike;
+
+        public double getTemp() {
             return temp;
         }
+
 
         public void setTemp(Double temp) {
             this.temp = temp;
@@ -56,14 +87,25 @@ public class HourlyWeather {
         }
 
         public void setFeelsLike(Double feelsLike) {
+
+        public void setTemp(double temp) {
+            this.temp = temp;
+        }
+
+        public double getFeelsLike() {
+            return feelsLike;
+        }
+
+        public void setFeelsLike(double feelsLike) {
+
             this.feelsLike = feelsLike;
         }
     }
 
-    public static class WeatherInfo {
+
+    public static class Weather {
         @SerializedName("icon")
         private String icon;
-
         @SerializedName("description")
         private String description;
         @SerializedName("main")

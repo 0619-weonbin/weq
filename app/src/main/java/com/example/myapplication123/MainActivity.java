@@ -2,9 +2,11 @@ package com.example.myapplication123;
 
 import android.os.Bundle;
 import android.util.Log;
+
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView dailyForecastRecyclerView;
     private DailyForecastAdapter dailyForecastAdapter;
     private List<DailyWeather> dailyWeatherList;
+
     private Button goToStyleButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +64,16 @@ public class MainActivity extends AppCompatActivity {
         currentTempTextView = findViewById(R.id.currentTempTextView);
         feelsLikeTextView = findViewById(R.id.feelsLikeTextView);
         weatherDescriptionTextView = findViewById(R.id.weatherDescriptionTextView);
+
         weatherIconImageView = findViewById(R.id.iconImageView);
         hourlyWeatherRecyclerView = findViewById(R.id.hourlyWeatherRecyclerView);
         dailyForecastRecyclerView = findViewById(R.id.dailyForecastRecyclerView);
         goToStyleButton = findViewById(R.id.goToStyleButton);
+
+        weatherIconImageView = findViewById(R.id.weatherIconImageView);
+        hourlyWeatherRecyclerView = findViewById(R.id.hourlyWeatherRecyclerView);
+        dailyForecastRecyclerView = findViewById(R.id.dailyForecastRecyclerView);
+
 
         hourlyWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         hourlyWeatherList = new ArrayList<>();
@@ -105,7 +115,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
+
             public void onFailure(Call<com.example.myapplication123.models.WeatherData> call, Throwable t) {
+
+            public void onFailure(Call<WeatherData> call, Throwable t) {
+
                 showFailureMessage("Network error: " + t.getMessage(), t);
             }
         });
@@ -220,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
                 HourlyWeather hourlyWeather = new HourlyWeather();
                 hourlyWeather.setDateTime(forecastItem.getDtTxt());
 
+
                 HourlyWeather.MainInfo mainInfo = new HourlyWeather.MainInfo();
                 mainInfo.setTemp(forecastItem.getMain().getTemp());
                 mainInfo.setFeelsLike(forecastItem.getMain().getFeelsLike()); // feels_like 추가
@@ -236,6 +251,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 hourlyWeather.setWeather(weatherInfoList);
+
+                HourlyWeather.Main main =  new HourlyWeather.Main();
+                main.setTemp(forecastItem.getMain().getTemp());
+                main.setFeelsLike(forecastItem.getMain().getFeelsLike());
+                hourlyWeather.setMain(main);
+
+                List<HourlyWeather.Weather> weatherList = new ArrayList<>();
+                if (forecastItem.getWeather() != null) {
+                    for (ForecastResponse.Weather weatherItem : forecastItem.getWeather()) {
+                        HourlyWeather.Weather weather =  new HourlyWeather.Weather();
+                        weather.setIcon(weatherItem.getIcon());
+                        weather.setDescription(weatherItem.getDescription());
+                        weather.setMain(weatherItem.getMain());
+                        weatherList.add(weather);
+                    }
+                }
+                hourlyWeather.setWeather(weatherList);
+
 
                 hourlyList.add(hourlyWeather);
             }
