@@ -1,37 +1,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/timeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HH:MM"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:text="시간"
+        android:textColor="#000"
+        android:layout_marginBottom="4dp"/>
 
     <ImageView
-        android:id="@+id/iconImageView"
+        android:id="@+id/weatherIconImageView"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="4dp"
-        android:scaleType="fitCenter"  android:src="@drawable/ic_launcher_foreground" />
+        android:src="@android:drawable/ic_menu_help"
+        android:layout_marginBottom="4dp"/>
+
     <TextView
         android:id="@+id/tempTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="--°C"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/descriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="날씨"
-        android:textSize="12sp" />
+        android:textSize="18sp"
+        android:text="온도"
+        android:textColor="#000"/>
 
 </LinearLayout>
