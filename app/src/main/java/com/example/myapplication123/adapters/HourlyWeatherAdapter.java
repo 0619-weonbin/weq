@@ -1,8 +1,7 @@
 package com.example.myapplication123.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log; // Log 추가
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,83 +9,103 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide; // Glide 사용 (이전 코드 기준)
 import com.example.myapplication123.R;
 import com.example.myapplication123.models.HourlyWeather;
-import com.squareup.picasso.Picasso;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException; // DateTimeParseException 추가
 import java.util.List;
+import java.util.Locale;
 
-public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeatherViewHolder> {
+public class HourlyWeatherAdapter extends RecyclerView.Adapter<HourlyWeatherAdapter.ViewHolder> {
 
-    private final List<HourlyWeather> hourlyWeatherList;
+    private Context context;
+    private List<HourlyWeather> hourlyWeatherList;
 
     public HourlyWeatherAdapter(Context context, List<HourlyWeather> hourlyWeatherList) {
+        this.context = context;
         this.hourlyWeatherList = hourlyWeatherList;
+    }
+
+    public void setHourlyWeatherList(List<HourlyWeather> hourlyWeatherList) {
+        this.hourlyWeatherList = hourlyWeatherList;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public HourlyWeatherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_hourly_weather, parent, false);
-        return new HourlyWeatherViewHolder(itemView);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_hourly_weather, parent, false);
+        Log.d("HourlyAdapter", "onCreateViewHolder 호출");
+        return new ViewHolder(view);
     }
 
-    @SuppressLint("DefaultLocale")
     @Override
-    public void onBindViewHolder(@NonNull HourlyWeatherViewHolder holder, int position) {
-        HourlyWeather hourlyWeather = hourlyWeatherList.get(position);
-
-        try {
-            // 1.  API 응답 형식에 맞춰 DateTimeFormatter를 수정.  현재 코드는 "yyyy-MM-dd HH:mm:ss" 로 파싱합니다.
-            //     만약 실제 API 응답이 다른 형식이면, 이 부분을 수정해야 합니다.
-            //     예: "yyyy-MM-dd'T'HH:mm:ss"  또는 "yyyy-MM-dd HH:mm:ss" 등.
-            String dateTimeString = hourlyWeather.getDateTime(); // Get the datetime string
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // **THIS LINE IS CRITICAL**
-            LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
-
-            // 시간 표시 형식 지정
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-            holder.timeTextView.setText(timeFormatter.format(dateTime));
-
-            holder.tempTextView.setText(String.format("%.1f°C", hourlyWeather.getMain().getTemp()));
-            holder.descriptionTextView.setText(hourlyWeather.getWeather().get(0).getDescription());
-
-            // 날씨 아이콘 로드 (Picasso 라이브러리 필요 - build.gradle에 추가)
-            String iconCode = hourlyWeather.getWeather().get(0).getIcon();
-            String iconUrl = "https://openweathermap.org/img/wn/" + iconCode + "@2x.png";
-            Picasso.get().load(iconUrl).into(holder.iconImageView);
-
-        } catch (DateTimeParseException e) {
-            // 2. 예외 처리: 날짜 파싱 오류가 발생하면 로그를 남기고, UI에 대체 값을 표시합니다.
-            Log.e("DateTimeParseError", "Date time parsing error for: " + hourlyWeather.getDateTime(), e);
-            holder.timeTextView.setText("N/A"); // or "" or some default
-            holder.tempTextView.setText("N/A");
-            holder.descriptionTextView.setText("N/A");
-            //holder.iconImageView.setImageResource(R.drawable.ic_error_outline); // You might have an error icon.
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Log.d("HourlyAdapter", "onBindViewHolder 호출 - position: " + position);
+        if (hourlyWeatherList != null && position < hourlyWeatherList.size()) {
+            HourlyWeather hourlyWeather = hourlyWeatherList.get(position);
+            holder.bind(hourlyWeather);
+        } else {
+            Log.e("HourlyAdapter", "onBindViewHolder - 리스트가 null이거나 position이 유효하지 않습니다.");
         }
     }
 
     @Override
     public int getItemCount() {
-        return hourlyWeatherList.size();
+        int count = hourlyWeatherList == null ? 0 : hourlyWeatherList.size();
+        Log.d("HourlyAdapter", "getItemCount 호출 - count: " + count);
+        return count;
     }
 
-    public static class HourlyWeatherViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView timeTextView;
+        ImageView iconImageView;
         TextView tempTextView;
         TextView descriptionTextView;
-        ImageView iconImageView;
 
-        public HourlyWeatherViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             timeTextView = itemView.findViewById(R.id.timeTextView);
+            iconImageView = itemView.findViewById(R.id.weatherIconImageView);
             tempTextView = itemView.findViewById(R.id.tempTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
-            iconImageView = itemView.findViewById(R.id.iconImageView);
+        }
+
+        public void bind(HourlyWeather hourlyWeather) {
+            if (hourlyWeather != null) {
+                // 시간 표시
+                try {
+                    LocalDateTime dateTime = LocalDateTime.parse(hourlyWeather.getDateTime().replace(" ", "T"));
+                    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault());
+                    timeTextView.setText(dateTime.format(timeFormatter));
+                } catch (Exception e) {
+                    Log.e("HourlyAdapter", "날짜/시간 파싱 오류: " + e.getMessage());
+                    timeTextView.setText("--:--");
+                }
+
+                // 날씨 아이콘 표시
+                if (hourlyWeather.getWeather() != null && !hourlyWeather.getWeather().isEmpty()) {
+                    String iconUrl = "https://openweathermap.org/img/wn/" + hourlyWeather.getWeather().get(0).getIcon() + "@2x.png";
+                    Glide.with(itemView.getContext()).load(iconUrl).into(iconImageView); // Glide 사용
+                } else {
+                    iconImageView.setImageResource(android.R.drawable.ic_menu_help); // 기본 아이콘
+                }
+
+                // 온도 표시
+                if (hourlyWeather.getMain() != null) {
+                    tempTextView.setText(String.format(Locale.getDefault(), "%.1f°C", hourlyWeather.getMain().getTemp()));
+                } else {
+                    tempTextView.setText("--°C");
+                }
+
+                // 날씨 설명 표시
+                if (hourlyWeather.getWeather() != null && !hourlyWeather.getWeather().isEmpty()) {
+                    descriptionTextView.setText(hourlyWeather.getWeather().get(0).getDescription());
+                } else {
+                    descriptionTextView.setText("날씨 정보 없음");
+                }
+            }
         }
     }
 }

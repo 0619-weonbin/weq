@@ -3,24 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".MainActivity">
-
-    <!--style 테스트용 버튼-->
-    <!--<Button
-        android:id="@+id/btnCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="카메라로"
-        tools:layout_editor_absoluteX="155dp"
-        tools:layout_editor_absoluteY="48dp" />-->
 
     <TextView
         android:id="@+id/dateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="날짜"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,6 +22,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="시간"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
 
@@ -39,59 +31,110 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:text="지역"
+        android:text="위치"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/currentTempTextView"
+    <LinearLayout
+        android:id="@+id/weatherInfoLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:text="--°C"
-        android:textSize="32sp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/locationTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/locationTextView">
+
+        <ImageView
+            android:id="@+id/weatherIconImageView"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginEnd="16dp"
+            android:src="@android:drawable/ic_menu_help" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/currentTempTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="온도"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/feelsLikeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="체감온도"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/weatherDescriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="날씨"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/feelsLikeTextView"
+        android:id="@+id/hourlyWeatherLabelTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:text="체감온도 --°C"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentTempTextView" />
-
-    <TextView
-        android:id="@+id/weatherDescriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:text="날씨 상태"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/feelsLikeTextView" />
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:text="시간별 날씨"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weatherInfoLayout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/hourlyWeatherRecyclerView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_min="100dp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dailyForecastRecyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/hourlyWeatherLabelTextView" />
+
+    <TextView
+        android:id="@+id/dailyForecastLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="일별 예보"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hourlyWeatherRecyclerView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dailyForecastRecyclerView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/goToStyleButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weatherDescriptionTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/dailyForecastLabelTextView" />
+
+    <Button
+        android:id="@+id/goToStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="스타일 설정"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

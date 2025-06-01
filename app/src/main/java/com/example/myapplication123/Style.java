@@ -159,7 +159,6 @@ public class Style extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
 
-        // 외부 저장소의 Pictures 디렉토리에 저장
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         // .jpg 확장자 임시 파일 생성
