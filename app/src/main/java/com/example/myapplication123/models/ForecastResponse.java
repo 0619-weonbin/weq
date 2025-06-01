@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class ForecastResponse {
-
     @SerializedName("cod")
     private String cod;
     @SerializedName("message")
@@ -43,6 +42,16 @@ public class ForecastResponse {
         private Main main;
         @SerializedName("weather")
         private List<Weather> weather;
+        @SerializedName("clouds")
+        private Clouds clouds; // Clouds 클래스 정의 필요
+        @SerializedName("wind")
+        private Wind wind;     // Wind 클래스 정의 필요
+        @SerializedName("visibility")
+        private int visibility;
+        @SerializedName("pop")
+        private double pop;
+        @SerializedName("sys")
+        private Sys sys;       // Sys 클래스 정의 필요
         @SerializedName("dt_txt")
         private String dtTxt;
 
@@ -56,6 +65,26 @@ public class ForecastResponse {
 
         public List<Weather> getWeather() {
             return weather;
+        }
+
+        public Clouds getClouds() {
+            return clouds;
+        }
+
+        public Wind getWind() {
+            return wind;
+        }
+
+        public int getVisibility() {
+            return visibility;
+        }
+
+        public double getPop() {
+            return pop;
+        }
+
+        public Sys getSys() {
+            return sys;
         }
 
         public String getDtTxt() {
@@ -74,31 +103,22 @@ public class ForecastResponse {
         private double tempMax;
         @SerializedName("pressure")
         private int pressure;
+        @SerializedName("sea_level")
+        private int seaLevel;
+        @SerializedName("grnd_level")
+        private int grndLevel;
         @SerializedName("humidity")
         private int humidity;
+        @SerializedName("temp_kf")
+        private double tempKf;
 
+        // Getter methods (필요하다면)
         public double getTemp() {
             return temp;
         }
 
         public double getFeelsLike() {
             return feelsLike;
-        }
-
-        public double getTempMin() {
-            return tempMin;
-        }
-
-        public double getTempMax() {
-            return tempMax;
-        }
-
-        public int getPressure() {
-            return pressure;
-        }
-
-        public int getHumidity() {
-            return humidity;
         }
     }
 
@@ -112,20 +132,53 @@ public class ForecastResponse {
         @SerializedName("icon")
         private String icon;
 
-        public int getId() {
-            return id;
-        }
-
-        public String getMain() {
-            return main;
-        }
-
+        // Getter methods (필요하다면)
         public String getDescription() {
             return description;
         }
 
         public String getIcon() {
             return icon;
+        }
+    }
+
+    // 추가된 클래스 정의
+    public static class Clouds {
+        @SerializedName("all")
+        private int all;
+
+        public int getAll() {
+            return all;
+        }
+    }
+
+    public static class Wind {
+        @SerializedName("speed")
+        private double speed;
+        @SerializedName("deg")
+        private int deg;
+        @SerializedName("gust")
+        private double gust;
+
+        public double getSpeed() {
+            return speed;
+        }
+
+        public int getDeg() {
+            return deg;
+        }
+
+        public double getGust() {
+            return gust;
+        }
+    }
+
+    public static class Sys {
+        @SerializedName("pod")
+        private String pod;
+
+        public String getPod() {
+            return pod;
         }
     }
 
