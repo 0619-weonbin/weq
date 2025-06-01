@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -87,8 +88,9 @@ public class MainActivity extends AppCompatActivity {
                 String detailedType = cursor.getString(cursor.getColumnIndexOrThrow("detailed_type"));
                 String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow("image_url"));
                 String tmpTag = cloTemp(detailedType);
+                int preference = cursor.getInt(cursor.getColumnIndexOrThrow("preference"));
 
-                CloTag clo = new CloTag(imageUrl,tmpTag,style,type,detailedType);
+                CloTag clo = new CloTag(imageUrl,tmpTag,style,type,detailedType,preference);
                 allClo.add(clo);
             }while(cursor.moveToNext());
         }
@@ -145,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
 
             filter.add(a);
         }
+
+        Collections.sort(filter,(a,b) -> Integer.compare(b.pref,a.pref));
+
         for (CloTag a : filter){
             ImageView imageView = new ImageView(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
