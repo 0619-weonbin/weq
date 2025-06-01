@@ -2,12 +2,15 @@ package com.example.myapplication123;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button; // 추가
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -72,6 +75,17 @@ public class MainActivity extends AppCompatActivity {
                 getWeatherData(37.63, 127.13, "kr");
                 getForecastData(37.63, 127.13, "kr");
                 binding.locationTextView.setText("구리");
+            }
+        });
+
+        // 스타일 설정 버튼 클릭 리스너 설정
+        Button goToStyleButton = binding.goToStyleButton; // ViewBinding 사용
+        goToStyleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Style.class);
+                startActivity(intent);
+                Log.d("MainActivity", "스타일 설정 버튼 클릭됨"); // 로그 추가 (확인용)
             }
         });
 

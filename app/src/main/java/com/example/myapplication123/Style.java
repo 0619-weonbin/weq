@@ -6,23 +6,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
-
 import android.database.sqlite.SQLiteDatabase;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -109,6 +107,7 @@ public class Style extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("StyleActivity", "저장 버튼 클릭됨");
                 //데베 접근은 이렇게 하면 됨. 다른 액티비티에서 똑같이 여러 번 써도 됨.
                 try (MyDatabaseHelper dbHelper = new MyDatabaseHelper(Style.this);
                      SQLiteDatabase db = dbHelper.getReadableDatabase()) {
@@ -124,7 +123,11 @@ public class Style extends AppCompatActivity {
                     long rowId = db.insert("clothes", null, values);
                 }
                 Toast.makeText(Style.this, "저장완료", Toast.LENGTH_LONG).show();
-                finish();
+
+                // ******************** 메인 화면으로 넘어가는 코드 (MainActivity) ********************
+                Intent intent = new Intent(Style.this, MainActivity.class);
+                startActivity(intent);
+                finish(); // 스타일 설정 액티비티 종료
             }
         });
 
