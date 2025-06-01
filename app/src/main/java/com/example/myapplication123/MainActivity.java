@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private HourlyWeatherAdapter hourlyWeatherAdapter;
     private List<HourlyWeather> hourlyWeatherList;
     private WeatherApiService weatherService;
-    private final String apiKey = "5cdcf11828c78b830592b9a252c231c7"; // 여기에 실제 API 키를 넣으세요
+    private final String apiKey = " "; // 여기에 실제 API 키를 넣으세요
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
