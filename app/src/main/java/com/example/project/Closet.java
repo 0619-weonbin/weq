@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class Closet extends AppCompatActivity {
 
     private Spinner styleSpinner;
     private LinearLayout clo1,clo2,clo3;
