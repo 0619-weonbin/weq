@@ -1,13 +1,12 @@
 package com.example.myweatherapp;
 
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class WeatherMain extends AppCompatActivity {
 
     private EditText editLocation;
 
@@ -20,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnSearch = findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(v -> {
             String location = editLocation.getText().toString().trim();
-            Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
+            Intent intent = new Intent(WeatherMain.this, WeatherActivity.class);
             intent.putExtra("location", location);
             startActivity(intent);
         });
