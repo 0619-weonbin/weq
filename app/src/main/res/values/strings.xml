@@ -8,4 +8,30 @@
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</string>
     <string name="hello_second_fragment">Hello Second Fragment</string>
     <string name="weather_api_key">e104a5f5b1766db1aab732f82fe5b57e</string>
+    <string-array name="style_array">
+    <item>스타일 선택</item>
+    <item>아메카지</item>
+    <item>스트릿</item>
+    <item>미니멀</item>
+    <item>캐주얼</item>
+    <item>스포티</item>
+    <item>걸리쉬</item>
+    <item>프레피룩</item>
+    <item>빈티지</item>
+    <item>레트로</item>
+    <item>오피스룩</item>
+    <item>노멀코어</item>
+    <item>테크웨어</item>
+    <item>댄디룩</item>
+    <item>모던룩</item>
+    <item>네츄럴룩</item>
+    <item>보헤미안</item>
+    <item>유니섹스</item>
+    <item>힙스터 스타일</item>
+    <item>멀티 레이어드</item>
+    <item>코리안 스트릿</item>
+    <item>Y2K</item>
+    <item>케이팝 스타일</item>
+    <item>룩북 스타일</item>
+    </string-array>
 </resources>

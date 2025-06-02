@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,10 @@ import android.widget.Button; // 추가
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -58,6 +63,17 @@ public class MainActivity extends AppCompatActivity {
         apiKey = getString(R.string.weather_api_key);
 
         hourlyWeatherRecyclerView = binding.hourlyWeatherRecyclerView;
+        Button goToClosetBtn = (Button)findViewById(R.id.goToClosetButton);
+        goToClosetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Closet.class);
+                startActivity(intent);
+                Log.d("Closet", "옷장 버튼 클릭됨"); // 로그 추가 (확인용)
+            }
+        });
+
+        RecyclerView hourlyWeatherRecyclerView = findViewById(R.id.hourlyWeatherRecyclerView);
         hourlyWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         hourlyWeatherList = new ArrayList<>();
         hourlyWeatherAdapter = new HourlyWeatherAdapter(this, hourlyWeatherList);
@@ -79,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 스타일 설정 버튼 클릭 리스너 설정
-        Button goToStyleButton = binding.goToStyleButton; // ViewBinding 사용
+        Button goToStyleButton = binding.goToClosetButton; // ViewBinding 사용
         goToStyleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

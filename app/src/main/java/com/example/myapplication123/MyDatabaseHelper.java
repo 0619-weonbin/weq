@@ -17,7 +17,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS clothes (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "style TEXT, type TEXT, detailed_type TEXT, preference INTEGER, image_url TEXT)");
-        //db.execSQL("INSERT INTO clothes (style, type) VALUES ('홍길동', '값1'), ('김철수', '값2')");
     }
 
     @Override

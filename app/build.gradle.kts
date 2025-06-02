@@ -38,7 +38,9 @@ android {
 }
 
 dependencies {
-
+    //옷장
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    //나머지
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.google.code.gson:gson:2.9.0")
