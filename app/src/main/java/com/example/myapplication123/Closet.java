@@ -37,7 +37,7 @@ public class Closet extends AppCompatActivity {
         clo1 = findViewById(R.id.clo1);
         clo2 = findViewById(R.id.clo2);
         clo3 = findViewById(R.id.clo3);
-        /*
+
         // 스타일 설정 버튼 클릭 리스너 설정
         Button goToStyleButton = (Button)findViewById(R.id.goToStyleButton);
         goToStyleButton.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +48,7 @@ public class Closet extends AppCompatActivity {
                 Log.d("Closet", "옷장 버튼 클릭됨"); // 로그 추가 (확인용)
             }
         });
-        */
+
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.style_array, android.R.layout.simple_spinner_item);

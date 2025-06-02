@@ -28,6 +28,7 @@
             android:dropDownHorizontalOffset="8dp"
             android:popupBackground="#FFFFFF"
             />
+        <!-- 스타일 버튼 테스트용 버튼 -->
         <Button
             android:id="@+id/goToStyleButton"
             android:layout_width="wrap_content"

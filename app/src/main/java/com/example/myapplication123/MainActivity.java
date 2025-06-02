@@ -95,13 +95,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 스타일 설정 버튼 클릭 리스너 설정
-        Button goToStyleButton = binding.goToClosetButton; // ViewBinding 사용
-        goToStyleButton.setOnClickListener(new View.OnClickListener() {
+        Button goToClosetButton = binding.goToClosetButton; // ViewBinding 사용
+        goToClosetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Style.class);
+                Intent intent = new Intent(MainActivity.this, Closet.class);
                 startActivity(intent);
-                Log.d("MainActivity", "스타일 설정 버튼 클릭됨"); // 로그 추가 (확인용)
+                Log.d("MainActivity", "옷장 버튼 클릭됨"); // 로그 추가 (확인용)
             }
         });
 
