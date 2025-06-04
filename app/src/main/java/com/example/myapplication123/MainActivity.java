@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -73,6 +72,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btnRegionalWeather = (Button) findViewById(R.id.btnRegionalWeather);
+        btnRegionalWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),WeatherMain.class);
+                startActivity(intent);
+            }
+        });
         RecyclerView hourlyWeatherRecyclerView = findViewById(R.id.hourlyWeatherRecyclerView);
         hourlyWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         hourlyWeatherList = new ArrayList<>();
