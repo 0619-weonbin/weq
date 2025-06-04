@@ -80,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        Button btnClosetAllItem = (Button) findViewById(R.id.btnClosetAllItem);
+        btnClosetAllItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),ClosetAllItem.class);
+                startActivity(intent);
+            }
+        });
+
         RecyclerView hourlyWeatherRecyclerView = findViewById(R.id.hourlyWeatherRecyclerView);
         hourlyWeatherRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         hourlyWeatherList = new ArrayList<>();

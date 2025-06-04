@@ -23,6 +23,7 @@
             android:exported="false" />
         <activity android:name=".WeatherActivity" />
         <activity android:name="WeatherMain"/>
+        <activity android:name=".ClosetAllItem"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

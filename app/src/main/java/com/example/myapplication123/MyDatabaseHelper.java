@@ -1,8 +1,12 @@
 package com.example.myapplication123;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
@@ -23,5 +27,21 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS clothes");
         onCreate(db);
+    }
+    public List<ClothesItem> getAllClothesSortedByPreference() {
+        List<ClothesItem> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT type, preference, image_url FROM clothes ORDER BY preference DESC", null);
+
+        while (cursor.moveToNext()) {
+            String type = cursor.getString(0);
+            int preference = cursor.getInt(1);
+            String imageUrl = cursor.getString(2);
+            list.add(new ClothesItem(type, preference, imageUrl));
+        }
+
+        cursor.close();
+        db.close();
+        return list;
     }
 }
