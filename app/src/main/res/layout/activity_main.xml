@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -85,13 +86,14 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/hourlyWeatherLabelTextView"
+        android:id="@+id/hourly_forecast_date_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginBottom="8dp"
         android:text="시간별 날씨"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/weatherInfoLayout" />
 
@@ -104,7 +106,7 @@
         app:layout_constraintHeight_min="100dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hourlyWeatherLabelTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/hourly_forecast_date_label" />
 
     <TextView
         android:id="@+id/dailyForecastLabelTextView"
@@ -122,40 +124,36 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/goToClosetButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/flowButtons" app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dailyForecastLabelTextView" />
-
 
     <Button
         android:id="@+id/goToClosetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="옷장"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:text="옷장" />
 
     <Button
         android:id="@+id/btnRegionalWeather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="128dp"
-        android:layout_marginBottom="16dp"
-        android:text="지역별 날씨"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:text="지역별 날씨" />
 
     <Button
         android:id="@+id/btnClosetAllItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="260dp"
+        android:text="모든 아이템" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/flowButtons" android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:flow_wrapMode="none" app:flow_horizontalStyle="packed" app:flow_horizontalGap="8dp" app:constraint_referenced_ids="btnClosetAllItem,btnRegionalWeather,goToClosetButton" app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="16dp"
-        android:text="모든 아이템"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

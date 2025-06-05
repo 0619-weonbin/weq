@@ -7,7 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</string>
     <string name="hello_second_fragment">Hello Second Fragment</string>
-    <string name="weather_api_key">e104a5f5b1766db1aab732f82fe5b57e</string>
+    <string name="weather_api_key"> </string>
     <string-array name="style_array">
     <item>스타일 선택</item>
     <item>아메카지</item>

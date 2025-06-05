@@ -12,13 +12,16 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHolder> {
-    private List<ClothesItem> itemList;
+    // ★★★ ClothesItem 대신 CloTag 리스트로 타입 변경 ★★★
+    private List<CloTag> itemList;
 
-    public ClothesAdapter(List<ClothesItem> items) {
+    // ★★★ 생성자 파라미터 타입 변경 ★★★
+    public ClothesAdapter(List<CloTag> items) {
         this.itemList = items;
     }
 
-    public void updateList(List<ClothesItem> newList) {
+    // ★★★ updateList 메서드 파라미터 타입 변경 ★★★
+    public void updateList(List<CloTag> newList) {
         this.itemList = newList;
         notifyDataSetChanged();
     }
@@ -40,10 +43,11 @@ public class ClothesAdapter extends RecyclerView.Adapter<ClothesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ClothesItem item = itemList.get(position);
+        // ★★★ ClothesItem 대신 CloTag 사용 ★★★
+        CloTag item = itemList.get(position);
         // Glide 라이브러리로 이미지 로딩
         Glide.with(holder.imageView.getContext())
-                .load(item.getImageUrl())
+                .load(item.CloUrl) // ★★★ CloTag의 이미지 URL 필드인 CloUrl 사용 ★★★
                 //.centerInside()
                 .into(holder.imageView);
     }
