@@ -161,8 +161,7 @@ public class Closet extends AppCompatActivity {
         for (CloTag a : filter){
             ImageView imageView = new ImageView(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+                   400,400
             );
             params.setMargins(16,16,16,16);
             imageView.setLayoutParams(params);

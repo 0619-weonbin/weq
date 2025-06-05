@@ -142,16 +142,20 @@
         android:id="@+id/btnRegionalWeather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="16dp"
         android:text="지역별 날씨"
-        tools:layout_editor_absoluteX="155dp"
-        tools:layout_editor_absoluteY="48dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btnClosetAllItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="260dp"
+        android:layout_marginBottom="16dp"
         android:text="모든 아이템"
-        tools:layout_editor_absoluteX="155dp"
-        tools:layout_editor_absoluteY="48dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
